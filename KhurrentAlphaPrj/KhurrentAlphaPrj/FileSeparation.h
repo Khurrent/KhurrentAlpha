@@ -21,7 +21,7 @@ public:
 	static const size_t KBYTE_2048		=	2048 * 1024;
 	static const size_t KBYTE_4096		=	4096 * 1024;
 	static const size_t KBYTE_8192		=	8192 * 1024;
-	static const size_t KBYTE_16384	=	16384 * 1024;
+	static const size_t KBYTE_16384		=	16384 * 1024;
 
 	/* constructors & destructor */
 	FileSeparation();
@@ -34,6 +34,7 @@ public:
 	bool fileSplit();
 	unsigned long long int getFileSize();
 	unsigned int getNumberOfSplits();
+	char* getPiece(int idx);
 private:
 	char *_fileData;
 	char *_address;
