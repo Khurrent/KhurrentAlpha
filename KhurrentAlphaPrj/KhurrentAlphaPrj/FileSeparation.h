@@ -32,16 +32,20 @@ public:
 	void setFileAddress(char *addr);
 	void setSplitSize(size_t size);
 	bool fileSplit();
+	unsigned long long int getFileSize();
+	unsigned int getNumberOfSplits();
 private:
 	char *_fileData;
 	char *_address;
 	size_t _splitSize;
 	unsigned long long int _orgFileSize;
+	unsigned int _numberOfSplits;
 
 	/* readFile (open) */
-	void readFile(FILE *&fp);
+	void _readFile(FILE *&fp);
 	/* get file size using fseek() */
-	unsigned long long int getFileSize(FILE *&fp);
+	unsigned long long int _getFileSize(FILE *&fp);
+	unsigned int _getNumberOfSplits();
 };
 
 #endif
