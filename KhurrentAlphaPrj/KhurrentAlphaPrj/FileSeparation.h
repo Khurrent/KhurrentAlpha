@@ -1,6 +1,8 @@
 #ifndef _FILE_SEPARATION_H
 #define _FILE_SEPARATION_H
 
+#include "Pieces.h"
+
 #include <iostream>
 #include <stdlib.h>
 #include <stdio.h>
@@ -34,7 +36,12 @@ public:
 	bool fileSplit();
 	unsigned long long int getFileSize();
 	unsigned int getNumberOfSplits();
+<<<<<<< HEAD
 	char* getPiece(int idx);
+=======
+
+	Pieces pieceTransition();
+>>>>>>> origin/hoon
 private:
 	char *_fileData;
 	char *_address;
