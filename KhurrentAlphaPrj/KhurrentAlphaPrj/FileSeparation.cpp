@@ -24,4 +24,5 @@ void FileSeparation::setSplitSize(int size)
 
 bool FileSeparation::fileSplit()
 {
+	return false;
 }
