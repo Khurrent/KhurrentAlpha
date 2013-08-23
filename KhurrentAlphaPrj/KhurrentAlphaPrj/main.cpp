@@ -7,6 +7,6 @@ using namespace std;
 
 int main()
 {
-	cout << FileSeparationa::KBYTE_16;
+	cout << FileSeparation::KBYTE_16;
 		return 0;
 }
