@@ -10,6 +10,7 @@ FileSeparation::FileSeparation()
 
 FileSeparation::~FileSeparation()
 {
+	cout << _address;
 }
 
 void FileSeparation::setFileAddress(char *addr)

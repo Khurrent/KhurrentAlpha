@@ -12,6 +12,7 @@ int main()
 	fs->setFileAddress("test.txt");
 	fs->setSplitSize(FileSeparation::KBYTE_16);
 	fs->fileSplit();
+	delete fs;
 
 	return 0;
 }	
