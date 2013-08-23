@@ -7,6 +7,11 @@ using namespace std;
 
 int main()
 {
-	cout << FileSeparation::KBYTE_16;
-		return 0;
-}
+	FileSeparation *fs = new FileSeparation;
+	
+	fs->setFileAddress("test.txt");
+	fs->setSplitSize(FileSeparation::KBYTE_16);
+	fs->fileSplit();
+
+	return 0;
+}	
