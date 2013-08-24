@@ -3,15 +3,17 @@
 
 #include "Pieces.h"
 
+<<<<<<< HEAD
 #include <iostream>
+=======
+>>>>>>> origin/hoon
 #include <stdlib.h>
 #include <stdio.h>
-
-using namespace std;
 
 class FileSeparation
 {
 public:
+<<<<<<< HEAD
 	/* split units(16KB ~ 16MB to be BYTES) */
 	static const size_t KBYTE_16		=	16 * 1024;
 	static const size_t KBYTE_32		=	32 * 1024;
@@ -25,6 +27,8 @@ public:
 	static const size_t KBYTE_8192		=	8192 * 1024;
 	static const size_t KBYTE_16384		=	16384 * 1024;
 
+=======
+>>>>>>> origin/hoon
 	/* constructors & destructor */
 	FileSeparation();
 	FileSeparation(char *addr) : _address(addr) {}
@@ -37,10 +41,15 @@ public:
 	unsigned long long int getFileSize();
 	unsigned int getNumberOfSplits();
 <<<<<<< HEAD
+<<<<<<< HEAD
 	char* getPiece(int idx);
 =======
 
 	Pieces pieceTransition();
+>>>>>>> origin/hoon
+=======
+	/* Summarize pieces infomations to transit*/
+	Pieces pieceTransition(bool type);
 >>>>>>> origin/hoon
 private:
 	char *_fileData;
