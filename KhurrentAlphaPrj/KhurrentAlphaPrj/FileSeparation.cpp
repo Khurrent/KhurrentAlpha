@@ -1,4 +1,5 @@
 #include "FileSeparation.h"
+#include "Pieces.h"
 
 #include <iostream>
 #include <stdlib.h>
@@ -9,6 +10,8 @@ FileSeparation::FileSeparation()
 {
 	/* initialize file split size */
 	this->_splitSize = 0;
+	/* initialize file size */
+	this->_orgFileSize = 0;
 }
 
 FileSeparation::~FileSeparation()
@@ -22,7 +25,10 @@ FileSeparation::~FileSeparation()
 void FileSeparation::setFileAddress(char *addr)
 {
 	this->_address = addr;
+	/* initialize file split size */
 	this->_splitSize = 0;
+	/* initialize file size */
+	this->_orgFileSize = 0;
 }
 
 void FileSeparation::setSplitSize(size_t size)
@@ -56,6 +62,22 @@ unsigned int FileSeparation::getNumberOfSplits()
 	return _numberOfSplits;
 }
 
+Pieces FileSeparation::pieceTransition(bool type)
+{
+	Pieces p;
+	p.setPieceSize(this->_splitSize);
+	p.setNumberofPiece(this->_numberOfSplits);
+
+	/* send whole pieces */
+	if(type == true) {
+	}
+	/* send only one piece */
+	else {
+	}
+
+	return p;
+}
+
 void FileSeparation::_readFile(FILE *&fp)
 {
 	/* open File */
@@ -85,5 +107,9 @@ unsigned long long int FileSeparation::_getFileSize(FILE *&fp)
 
 unsigned int FileSeparation::_getNumberOfSplits()
 {
-	return _orgFileSize / _splitSize;
+	/* the data types are each different though, */
+	/* it is okay because when you divide, */
+	/* the result will fit on the data type (unsigned int) */
+	this->_numberOfSplits = this->_orgFileSize / this->_splitSize;
+	return this->_numberOfSplits;
 }

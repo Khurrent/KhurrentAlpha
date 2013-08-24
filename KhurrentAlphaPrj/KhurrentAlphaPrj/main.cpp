@@ -1,4 +1,5 @@
 #include "FileSeparation.h"
+#include "Pieces.h"
 
 #include <iostream>
 #include <fstream>
@@ -10,7 +11,7 @@ int main()
 	FileSeparation *fs = new FileSeparation;
 	
 	fs->setFileAddress("test.txt");
-	fs->setSplitSize(FileSeparation::KBYTE_16);
+	fs->setSplitSize(Pieces::KBYTE_16);
 	fs->fileSplit();
 	
 	delete fs;
