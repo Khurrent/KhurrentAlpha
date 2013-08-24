@@ -8,13 +8,27 @@ using namespace std;
 
 int main()
 {
-	FileSeparation *fs = new FileSeparation;
+	/* dynamic allocation for multi-threading */
+	FileSeparation *fs = new FileSeparation[2];
 	
-	fs->setFileAddress("test.txt");
-	fs->setSplitSize(Pieces::KBYTE_16);
-	fs->fileSplit();
-	
-	delete fs;
+	fs[0].setAddress("test.txt");
+	fs[0].setPieceSize(Pieces::KBYTE_16);
+	fs[0].exec();
 
+	fs[1].setAddress("test.msi");
+	fs[1].setPieceSize(Pieces::KBYTE_64);
+	fs[1].exec();
+
+	fs[0].printStatus();
+	cout << endl;
+	fs[1].printStatus();
+
+	/* dynamic allocation for pieces */
+	Pieces *pieces = new Pieces[fs[0].getNumberOfPieces()];
+
+
+	delete[] pieces;
+	delete[] fs;
+	
 	return 0;
 }	

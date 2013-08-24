@@ -10,38 +10,29 @@
 class FileSeparation
 {
 public:
-	/* constructors & destructor */
 	FileSeparation();
-	FileSeparation(char *addr) : _address(addr) {}
-	FileSeparation(char *addr, int splitSize) : _address(addr), _splitSize(splitSize) {}
+	FileSeparation(char *addr);
 	~FileSeparation();
 
-	void setFileAddress(char *addr);
-	void setSplitSize(size_t size);
-	bool fileSplit();
-	unsigned long long int getFileSize();
-	unsigned int getNumberOfSplits();
+	void setAddress(char *addr);
+	void setPieceSize(size_t size);
+	bool exec();
+	int  getNumberOfPieces();
+	void printStatus();
 
-	char* getPiece(int idx);
-
-
-	Pieces pieceTransition();
-
-	/* Summarize pieces infomations to transit*/
-	Pieces pieceTransition(bool type);
-
+	void pieceTransit(Pieces *&pieces);
 private:
-	char *_fileData;
-	char *_address;
-	size_t _splitSize;
-	unsigned long long int _orgFileSize;
-	unsigned int _numberOfSplits;
+	bool _readFile();
+	void _getFileSize();
+	void _getNumberOfPieces();
+	void _getLastPieceSize();
 
-	/* readFile (open) */
-	void _readFile(FILE *&fp);
-	/* get file size using fseek() */
-	unsigned long long int _getFileSize(FILE *&fp);
-	unsigned int _getNumberOfSplits();
+	char *_address;
+	size_t _pieceSize;
+	size_t _lastPieceSize;
+	unsigned long long int _fileSize;
+	int _numberOfPieces;
+	FILE *_fp;
 };
 
 #endif

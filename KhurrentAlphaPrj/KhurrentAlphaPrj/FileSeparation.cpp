@@ -8,108 +8,102 @@ using namespace std;
 
 FileSeparation::FileSeparation()
 {
-	/* initialize file split size */
-	this->_splitSize = 0;
-	/* initialize file size */
-	this->_orgFileSize = 0;
+	/* initialize data */
+	this->_address		= nullptr;
+	this->_pieceSize	= 0;
+	this->_fileSize		= 0;
+	this->_fp			= nullptr;
+}
+
+FileSeparation::FileSeparation(char *addr)
+{
+	/* copy address data */
+	this->_address		= addr;
+
+	/* initialize data */
+	this->_pieceSize	= 0;
+	this->_fileSize		= 0;
+	this->_fp			= nullptr;
+
 }
 
 FileSeparation::~FileSeparation()
 {
-	cout << "file Size : " << this->_orgFileSize << endl;
-	cout << "splitSize : " << this->_splitSize << endl;
-	cout << "file Name : " << this->_address << endl;
-	cout << _getNumberOfSplits() << endl;
+	/* if FILE *this->_fp exists, do kill */
+	if(this->_fp) fclose(this->_fp);
 }
 
-void FileSeparation::setFileAddress(char *addr)
+void FileSeparation::setAddress(char *addr)
 {
 	this->_address = addr;
-	/* initialize file split size */
-	this->_splitSize = 0;
-	/* initialize file size */
-	this->_orgFileSize = 0;
 }
 
-void FileSeparation::setSplitSize(size_t size)
+bool FileSeparation::exec()
 {
-	this->_splitSize = size;
+	if(this->_readFile() == true)
+		return true;
+	else
+		return false;
 }
 
-bool FileSeparation::fileSplit()
+
+int FileSeparation::getNumberOfPieces()
 {
-	FILE *fp;
-	/* open and read file */
-	_readFile(fp);
-	/* dynamic allocation for piece storage */
-	this->_fileData = new char[this->_orgFileSize * sizeof(char) + 1];
-	/* copy data NOT SPLIT */
-	for(size_t i = 0;i < this->_orgFileSize + 1; i++) {
-		fread((void *)this->_fileData, sizeof(char), sizeof(this->_fileData), fp); 
+	return this->_numberOfPieces;
+}
+
+void FileSeparation::printStatus()
+{
+	cout << "File Name : " << this->_address << endl;
+	cout << "PieceSize : " << this->_pieceSize << endl;
+	cout << "File Size : " << this->_fileSize << endl;
+	cout << "NoOfpiece : " << this->_numberOfPieces << endl;
+	cout << "lastPiece : " << this->_lastPieceSize << endl;
+}
+
+void FileSeparation::setPieceSize(size_t size)
+{
+	this->_pieceSize = size;
+}
+
+void FileSeparation::pieceTransit(Pieces *&pieces)
+{
+}
+
+bool FileSeparation::_readFile()
+{
+	/* open File */
+	this->_fp = fopen(this->_address, "rb");
+	if(!this->_fp) {
+		cout << "error! file doesn't exist" << endl;
+		return true;
 	}
-	fclose(fp);
-	delete this->_fileData;
+	this->_getFileSize();
+	this->_getNumberOfPieces();
+	this->_getLastPieceSize();
+
 	return false;
 }
 
-unsigned long long int FileSeparation::getFileSize()
+void FileSeparation::_getFileSize()
 {
-	return this->_orgFileSize;
+	/* move position to eof */
+	fseek(this->_fp, 0, SEEK_END);
+	/* get position of eof */
+	this->_fileSize = ftell(this->_fp);
+	/* move back to the front */
+	rewind(this->_fp);
 }
 
-unsigned int FileSeparation::getNumberOfSplits()
+void FileSeparation::_getNumberOfPieces()
 {
-	return _numberOfSplits;
+	this->_numberOfPieces = (int)(this->_fileSize / this->_pieceSize);
 }
 
-Pieces FileSeparation::pieceTransition(bool type)
+void FileSeparation::_getLastPieceSize()
 {
-	Pieces p;
-	p.setPieceSize(this->_splitSize);
-	p.setNumberofPiece(this->_numberOfSplits);
-
-	/* send whole pieces */
-	if(type == true) {
-	}
-	/* send only one piece */
-	else {
-	}
-
-	return p;
-}
-
-void FileSeparation::_readFile(FILE *&fp)
-{
-	/* open File */
-	fp = fopen(this->_address, "rb");
-	if(!fp) {
-		cout << "File doesn't exist" << endl;
-		exit(100);
-	}
-	/* get Position to calculate File Size */
-	this->_orgFileSize = _getFileSize(fp);
-}
-
-
-unsigned long long int FileSeparation::_getFileSize(FILE *&fp)
-{
-	unsigned long long int fSize;
-	/* get File size. Move to EOF */
-	fseek(fp, 0, SEEK_END);
-	/* get File Size */
-	fSize = ftell(fp);
-	/* rewind current position to the front */
-	rewind(fp);
-
-	/* return file size */
-	return fSize;
-}
-
-unsigned int FileSeparation::_getNumberOfSplits()
-{
-	/* the data types are each different though, */
-	/* it is okay because when you divide, */
-	/* the result will fit on the data type (unsigned int) */
-	this->_numberOfSplits = this->_orgFileSize / this->_splitSize;
-	return this->_numberOfSplits;
+	/* the very last piece has an imperfect data set, */
+	/* which means we don't know the size of the last piece */
+	/* and that's why we should calculate. */
+	this->_lastPieceSize = this->_fileSize % this->_pieceSize;
 }
