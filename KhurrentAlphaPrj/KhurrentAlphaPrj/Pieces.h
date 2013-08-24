@@ -4,10 +4,6 @@
 class Pieces
 {
 public:
-<<<<<<< HEAD
-	Pieces();
-private:
-=======
 	/* split units(16KB ~ 16MB to be BYTES) */
 	static const size_t KBYTE_16		=	16 * 1024;
 	static const size_t KBYTE_32		=	32 * 1024;
@@ -33,7 +29,6 @@ private:
 private:
 	size_t _size;
 	int _numberOfPiece;
->>>>>>> origin/hoon
 };
 
 #endif
