@@ -26,7 +26,17 @@ public:
 
 	void setPieceSize(size_t size);
 	void setNumberofPiece(int numberOfPiece);
+	void pieceSetInit();
+	void printStatus();
 private:
+	struct pieceSet
+	{
+		int idx;
+		char *dataPieces;
+	};
+
+	pieceSet *_piece;
+	
 	size_t _size;
 	int _numberOfPiece;
 };

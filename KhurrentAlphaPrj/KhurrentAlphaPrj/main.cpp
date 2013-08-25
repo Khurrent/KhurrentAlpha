@@ -10,7 +10,7 @@ int main()
 {
 	/* dynamic allocation for multi-threading */
 	FileSeparation *fs = new FileSeparation[2];
-	
+
 	fs[0].setAddress("test.txt");
 	fs[0].setPieceSize(Pieces::KBYTE_16);
 	fs[0].exec();
@@ -19,16 +19,17 @@ int main()
 	fs[1].setPieceSize(Pieces::KBYTE_64);
 	fs[1].exec();
 
+	Pieces *pieces = new Pieces;
+	fs[0].pieceTransit(pieces);
+
+
 	fs[0].printStatus();
+	pieces->printStatus();
 	cout << endl;
 	fs[1].printStatus();
 
-	/* dynamic allocation for pieces */
-	Pieces *pieces = new Pieces[fs[0].getNumberOfPieces()];
-
-
-	delete[] pieces;
+	delete pieces;
 	delete[] fs;
-	
+
 	return 0;
 }	

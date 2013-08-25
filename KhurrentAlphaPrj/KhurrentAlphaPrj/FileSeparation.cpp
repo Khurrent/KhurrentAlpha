@@ -68,6 +68,8 @@ void FileSeparation::setPieceSize(size_t size)
 
 void FileSeparation::pieceTransit(Pieces *&pieces)
 {
+	pieces->setPieceSize(this->_pieceSize);
+	pieces->setNumberofPiece(this->_numberOfPieces);
 }
 
 bool FileSeparation::_readFile()
