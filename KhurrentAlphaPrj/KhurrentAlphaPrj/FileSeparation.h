@@ -16,11 +16,11 @@ public:
 
 	void setAddress(char *addr);
 	void setPieceSize(size_t size);
+	void pieceTransit(Pieces *&pieces);
 	bool exec();
 	int  getNumberOfPieces();
 	void printStatus();
 
-	void pieceTransit(Pieces *&pieces);
 private:
 	bool _readFile();
 	void _getFileSize();

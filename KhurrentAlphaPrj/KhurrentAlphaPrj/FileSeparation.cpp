@@ -1,6 +1,7 @@
 #include "FileSeparation.h"
 #include "Pieces.h"
 
+
 #include <iostream>
 #include <stdlib.h>
 #include <string>
@@ -40,10 +41,13 @@ void FileSeparation::setAddress(char *addr)
 
 bool FileSeparation::exec()
 {
-	if(this->_readFile() == true)
+	bool result = this->_readFile();
+	if(result == true)
 		return true;
-	else
-		return false;
+
+	//fread()
+
+	return false;
 }
 
 
@@ -70,16 +74,22 @@ void FileSeparation::pieceTransit(Pieces *&pieces)
 {
 	pieces->setPieceSize(this->_pieceSize);
 	pieces->setNumberofPiece(this->_numberOfPieces);
+	pieces->setLastPieceSize(this->_lastPieceSize);
+	pieces->setFileSize(this->_fileSize);
+	pieces->setFileAddress(this->_address);
 }
 
 bool FileSeparation::_readFile()
 {
 	/* open File */
 	this->_fp = fopen(this->_address, "rb");
+	
 	if(!this->_fp) {
 		cout << "error! file doesn't exist" << endl;
 		return true;
 	}
+	
+	/* get file data info */
 	this->_getFileSize();
 	this->_getNumberOfPieces();
 	this->_getLastPieceSize();
@@ -109,3 +119,4 @@ void FileSeparation::_getLastPieceSize()
 	/* and that's why we should calculate. */
 	this->_lastPieceSize = this->_fileSize % this->_pieceSize;
 }
+

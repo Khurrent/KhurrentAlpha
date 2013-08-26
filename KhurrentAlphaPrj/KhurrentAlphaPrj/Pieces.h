@@ -24,8 +24,11 @@ public:
 	Pieces();
 	~Pieces();
 
-	void setPieceSize(size_t size);
+	void setPieceSize(size_t &size);
+	void setLastPieceSize(size_t &size);
 	void setNumberofPiece(int numberOfPiece);
+	void setFileSize(unsigned long long int &fileSize);
+	void setFileAddress(char *address);
 	void pieceSetInit();
 	void printStatus();
 private:
@@ -38,7 +41,10 @@ private:
 	pieceSet *_piece;
 	
 	size_t _size;
+	size_t _lastPieceSize;
 	int _numberOfPiece;
+	unsigned long long int _fileSize;
+	char *_address;
 };
 
 #endif
