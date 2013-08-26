@@ -24,6 +24,9 @@ public:
 	Pieces();
 	~Pieces();
 
+	/* why the variables below are set in reference mode is */
+	/* during the data transition, we can check the existence */
+	/* of the following data. */
 	void setPieceSize(size_t &size);
 	void setLastPieceSize(size_t &size);
 	void setNumberofPiece(int numberOfPiece);
