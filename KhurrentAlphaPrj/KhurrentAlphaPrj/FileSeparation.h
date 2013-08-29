@@ -26,8 +26,11 @@ private:
 	void _getFileSize();
 	void _getNumberOfPieces();
 	void _getLastPieceSize();
+	void _savePieces(Pieces *&pieces);
+	void _getData(int idx);
 
 	char *_address;
+	char *_transitData;
 	size_t _pieceSize;
 	size_t _lastPieceSize;
 	unsigned long long int _fileSize;

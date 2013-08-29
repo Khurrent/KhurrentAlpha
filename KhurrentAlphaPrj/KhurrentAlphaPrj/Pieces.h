@@ -24,15 +24,14 @@ public:
 	Pieces();
 	~Pieces();
 
-	/* why the variables below are set in reference mode is */
-	/* during the data transition, we can check the existence */
-	/* of the following data. */
-	void setPieceSize(size_t &size);
-	void setLastPieceSize(size_t &size);
+	void setPieceSize(size_t size);
+	void setLastPieceSize(size_t size);
 	void setNumberofPiece(int numberOfPiece);
-	void setFileSize(unsigned long long int &fileSize);
+	void setFileSize(unsigned long long int fileSize);
 	void setFileAddress(char *address);
 	void pieceSetInit();
+	void pieceSetTransit();
+	bool setPieceData();
 	void printStatus();
 private:
 	struct pieceSet
@@ -43,7 +42,7 @@ private:
 
 	pieceSet *_piece;
 	
-	size_t _size;
+	size_t _pieceSize;
 	size_t _lastPieceSize;
 	int _numberOfPiece;
 	unsigned long long int _fileSize;

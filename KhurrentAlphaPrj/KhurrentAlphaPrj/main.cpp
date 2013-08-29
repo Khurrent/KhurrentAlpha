@@ -22,7 +22,6 @@ int main()
 	Pieces *pieces = new Pieces;
 	fs[0].pieceTransit(pieces);
 
-
 	fs[0].printStatus();
 	pieces->printStatus();
 	cout << endl;
@@ -30,6 +29,7 @@ int main()
 
 	delete pieces;
 	delete[] fs;
+
 
 	return 0;
 }	
