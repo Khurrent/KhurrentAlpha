@@ -20,7 +20,6 @@ public:
 	static const bool PIECE_TRANSITION_TYPE_ONE	 = false;
 	static const bool PIECE_TRANSITION_TYPE_FULL = true;
 
-
 	Pieces();
 	~Pieces();
 
@@ -31,12 +30,14 @@ public:
 	void setFileAddress(char *address);
 	void pieceSetInit();
 	void pieceSetTransit();
-	bool setPieceData();
+	bool setPieceData(int idx, char *data, int size);
 	void printStatus();
-private:
+
+private:	
+	
 	struct pieceSet
 	{
-		int idx;
+		int size;
 		char *dataPieces;
 	};
 

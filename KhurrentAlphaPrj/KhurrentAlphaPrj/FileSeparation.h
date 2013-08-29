@@ -27,7 +27,7 @@ private:
 	void _getNumberOfPieces();
 	void _getLastPieceSize();
 	void _savePieces(Pieces *&pieces);
-	void _getData(int idx);
+	
 
 	char *_address;
 	char *_transitData;

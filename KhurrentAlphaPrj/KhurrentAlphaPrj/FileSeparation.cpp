@@ -9,23 +9,29 @@ using namespace std;
 FileSeparation::FileSeparation()
 {
 	/* initialize data */
-	this->_address		= nullptr;
-	this->_transitData  = nullptr;
-	this->_pieceSize	= 0;
-	this->_fileSize		= 0;
-	this->_fp			= nullptr;
+	this->_address			= nullptr;
+	this->_transitData		= nullptr;
+	this->_pieceSize		= 0;
+	this->_lastPieceSize	= 0;
+	this->_fileSize			= 0;
+	this->_fp				= nullptr;
+	this->_pieceSize		= 0;
+	this->_numberOfPieces	= 0;
 }
 
 FileSeparation::FileSeparation(char *addr)
 {
 	/* copy address data */
-	this->_address		= addr;
+	this->_address			= addr;
 
 	/* initialize data */
-	this->_transitData  = nullptr;
-	this->_pieceSize	= 0;
-	this->_fileSize		= 0;
-	this->_fp			= nullptr;
+	this->_transitData		= nullptr;
+	this->_pieceSize		= 0;
+	this->_fileSize			= 0;
+	this->_lastPieceSize	= 0;
+	this->_fp				= nullptr;
+	this->_pieceSize		= 0;
+	this->_numberOfPieces	= 0;
 
 }
 
@@ -33,8 +39,6 @@ FileSeparation::~FileSeparation()
 {
 	/* if FILE *this->_fp exists, do kill */
 	if(this->_fp) fclose(this->_fp);
-	/* deletion */
-	if(this->_transitData) delete[] this->_transitData;
 }
 
 void FileSeparation::setAddress(char *addr)
@@ -44,9 +48,8 @@ void FileSeparation::setAddress(char *addr)
 
 bool FileSeparation::exec()
 {
-	bool result = this->_readFile();
-	if(result == true)
-		return true;
+	if(_readFile() == true) return true;
+	
 	return false;
 }
 
@@ -124,14 +127,20 @@ void FileSeparation::_getLastPieceSize()
 
 void FileSeparation::_savePieces(Pieces *&pieces)
 {
-	/*
-		for()
-			_getData(iter);
-	*/
-}
-
-void FileSeparation::_getData(int nth)
-{
-	fread(this->_transitData, this->_pieceSize, 1, this->_fp);
-	// fseek();
+	for(int i=0;i<this->_numberOfPieces;i++)
+	{
+		this->_transitData = new char[this->_pieceSize+1];
+		fread(this->_transitData, sizeof(char), this->_pieceSize, this->_fp);
+		this->_transitData[this->_pieceSize] = '\0';
+		pieces->setPieceData(i, this->_transitData, this->_pieceSize);
+		
+		delete[] this->_transitData;
+	}
+	this->_transitData = new char[this->_lastPieceSize+1];
+	fseek(this->_fp, this->_numberOfPieces*this->_pieceSize, SEEK_SET);
+	fread(this->_transitData, sizeof(char), this->_lastPieceSize, this->_fp);
+	this->_transitData[this->_lastPieceSize] = '\0';
+	pieces->setPieceData(this->_numberOfPieces, this->_transitData, this->_lastPieceSize);
+	
+	delete[] this->_transitData;	
 }
