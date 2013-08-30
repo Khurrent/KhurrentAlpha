@@ -5,7 +5,12 @@ using namespace std;
 
 Pieces::Pieces()
 {
-	this->_piece = nullptr;
+	this->_piece			= nullptr;
+	this->_pieceSize		= 0;
+	this->_lastPieceSize	= 0;
+	this->_numberOfPiece	= 0;
+	this->_fileSize			= 0;
+	this->_address			= nullptr;
 }
 
 Pieces::~Pieces()
