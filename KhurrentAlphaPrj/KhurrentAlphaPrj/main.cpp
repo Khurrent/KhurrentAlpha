@@ -1,5 +1,6 @@
 #include "FileSeparation.h"
 #include "Pieces.h"
+#include "md5.h"
 
 #include <iostream>
 #include <fstream>

@@ -17,9 +17,6 @@ public:
 	static const size_t KBYTE_8192		=	8192 * 1024;
 	static const size_t KBYTE_16384		=	16384 * 1024;
 
-	static const bool PIECE_TRANSITION_TYPE_ONE	 = false;
-	static const bool PIECE_TRANSITION_TYPE_FULL = true;
-
 	Pieces();
 	~Pieces();
 
